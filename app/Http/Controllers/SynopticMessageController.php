@@ -914,27 +914,27 @@ class SynopticMessageController extends Controller
                         $synopticMessage->message = $wholemessage;
                         $synopticMessage->username = $username;
                         $synopticMessage->save();
-
-                        //connexion ftp et envoie au serveur.
-                        $messageContent = $wholemessage;
-                        // Écrire le contenu dans un fichier temporaire
-                            $tempFilePath = tempnam(sys_get_temp_dir(), 'message');
-                            file_put_contents($tempFilePath, $messageContent);
-                            $fileCommandsPath = 'C:\\Users\\LENOVO\\OneDrive\\Bureau\\II-BDCC\\PremièreAnnée\\Stage d\'observation\\commandes.txt';
-                            // Utiliser la commande système pour transférer le fichier via FileZilla
-                            $remotePath = '.';
-                            $command = 'Téléchargements\\FileZilla.exe -u "usaouiraa:Saouiraa15TRans" -p 21 -b "' . $fileCommandsPath . '"';
-                            $commands = [
-                                "open ftp://172.16.0.38",
-                                "put \"$tempFilePath\" \"$remotePath\"",
-                                "bye"
-                            ];
-                            file_put_contents($fileCommandsPath, implode("\n", $commands));
-                            exec($command);
-                            // Nettoyer le fichier temporaire
-                            unlink($tempFilePath);
+                    //essai1
+                        // //connexion ftp et envoie au serveur.
+                        // $messageContent = $wholemessage;
+                        // // Écrire le contenu dans un fichier temporaire
+                        //     $tempFilePath = tempnam(sys_get_temp_dir(), 'message');
+                        //     file_put_contents($tempFilePath, $messageContent);
+                        //     $fileCommandsPath = 'C:\\Users\\LENOVO\\OneDrive\\Bureau\\II-BDCC\\PremièreAnnée\\Stage d\'observation\\commandes.txt';
+                        //     // Utiliser la commande système pour transférer le fichier via FileZilla
+                        //     $remotePath = '.';
+                        //     $command = 'Téléchargements\\FileZilla.exe -u "usaouiraa:Saouiraa15TRans" -p 21 -b "' . $fileCommandsPath . '"';
+                        //     $commands = [
+                        //         "open ftp://172.16.0.38",
+                        //         "put \"$tempFilePath\" \"$remotePath\"",
+                        //         "bye"
+                        //     ];
+                        //     file_put_contents($fileCommandsPath, implode("\n", $commands));
+                        //     exec($command);
+                        //     // Nettoyer le fichier temporaire
+                        //     unlink($tempFilePath);
                         //Transmission HTTP
-
+                    //essai 2
                          // Informations du serveur distant
                             // $serverHost = "172.16.0.38";
                             // $serverPort = 21;
@@ -962,6 +962,17 @@ class SynopticMessageController extends Controller
 
                             // // Fermeture de la connexion FTP
                             // ftp_close($ftp);
+                    //essai 3
+
+                    $messageContent = $wholemessage;
+                    $xFilePath = 'C:\Users\LENOVO\OneDrive\Bureau\message.x';
+
+                    // Écrire le contenu dans le fichier .x
+                    file_put_contents($xFilePath, $messageContent);
+                    //
+                    $pythonScriptPath = 'C:\laragon\www\SynopController\public\python\scriptpy.py';
+                    exec("python $pythonScriptPath");
+
 
                         Toastr::success('success', 'Message submitted successfully!');
                         return redirect()->back()->with('success', 'Message submitted successfully!');
