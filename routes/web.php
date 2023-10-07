@@ -8,6 +8,11 @@ use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\TypeFormController;
 use App\Http\Controllers\ManageController;
 use App\Http\Controllers\BotManController;
+use App\Http\Controllers\SynopticMessageController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ContactFormController;
+use App\Http\Controllers\ChatBotController;
+use App\Http\Controllers\BotController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,10 +23,9 @@ use App\Http\Controllers\BotManController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-use App\Http\Controllers\SynopticMessageController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ContactFormController;
-use App\Http\Controllers\ChatBotController;
+
+
+
 Route::get('/form', [StationInformationController::class, 'showForm'])->name('form.show');
 Route::post('/form', [StationInformationController::class, 'submitForm'])->name('form.submit');
 
@@ -119,6 +123,14 @@ Route::get('send',[ChatBotController::class,'sendChat']);
 require __DIR__ . '/auth.php';
 
 Route::match(['get', 'post'], 'botman', [BotManController::class, 'handle']);
+Route::post('chatbot', 'ChatbotController@handle');
+// Route::get('/bot', 'BotController@index');
+Route::get('/bot',[BotController::class,'index']);
+// Route::post('/send-message', 'BotController@sendMessage');
+// Route::post('/send-message',[BotController::class,'sendMessage']);
+Route::match(['get', 'post'], '/send-message', [BotController::class,'sendMessage']);
+
+Route::post('/api/bot', 'BotController@botEndpoint');
 
 Auth::routes();
 

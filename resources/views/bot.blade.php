@@ -32,35 +32,16 @@
     }
 
     </style>
-<body style="background:#1f3646;">
-
-    <div>
-        <div class="container-fluid m-0 d-flex p-2">
-            <div class="pl-2" style="width:40px;height:50px;font-size:180%;">
-                <i class="fa fa-angle-double-left text-white mt-2"></i>
-            </div>
-            <div style="width:50px;height:50px;">
-                <img src="img/user.png" style="width:100%;height:100%;border-radius:50px;">
-            </div>
-            <div class="text-white font-weight-bold ml-2 mt-2" style="font-weight: bolder;font-size:22px;margin:5px;">
-                SynoptiXpress chatbot
-            </div>
-        </div>
-        <div style="border: #061128;height:2px;"></div>
-        <div id="content-box" class="container-fluid p-2" style="height:calc(100vh-130px);overFlow-y:scroll;">
-            
-            
-        </div>
-        <div class="container-fluid w-100 px-3 py-2 d-flex" style="background: #131f45;height:62px;width:100%;">
-            <div class="mr-2 pl-2" style="background:#ffffff1c;width:calc(100%-45px);border-radius:5px;">
-                <input class="p-4 text-white" id="input" type="text" name="input" style="background:none;height:100%;border:0;outline:none;"/>
-            </div>
-            <div id="button-submit" class="text-center" style="cursor:pointer;background:#ffe165;height:100%;width:50px;border-radius:5px;">
-                <i class="fa fa-paper-plane text-white" aria-hidden="true" style="line-height:45px;"></i>
-            </div>
-        </div>
-    </div>
-
+<body>
+    <h1>Bot Laravel</h1>
+    <form method="post" action="/send-message">
+        @csrf
+        <input type="text" name="message">
+        <button type="submit">Envoyer</button>
+    </form>
+    @isset($botResponse)
+        <p>Réponse du bot : {{ $botResponse }}</p>
+    @endisset
 </body>    
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="js/vendor/bootstrap.min.js"></script>

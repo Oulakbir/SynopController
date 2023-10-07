@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Controllers\Controller;
-use BotMan\BotMan\BotMan;
-use BotMan\BotMan\Messages\Incoming\Answer;
-use Illuminate\Http\Request;
 
+use BotMan\BotMan\BotMan;
+use OpenAI\Laravel\Facades\OpenAI;
+use Illuminate\Http\Request;
 
 class BotManController extends Controller
 {
@@ -15,47 +14,22 @@ class BotManController extends Controller
     public function handle(Request $request)
     {
         $botman = app('botman');
-        
-        $botman->hears('{message}', function(BotMan $bot, $message) {
-            $lowercaseMessage = strtolower($message);
-            
-            if (strpos($lowercaseMessage, 'synoptic') !== false) {
-                $this->handleSynopticQuestion($bot, $lowercaseMessage);
-            } else {
-                $bot->reply("I'm sorry, I'm not sure how to respond to that.");
-            }
+        $engine = 'text-davinci-003'; 
+
+        $botman->hears('{message}', function (BotMan $bot, $message) use ($engine) {
+            $response = OpenAI::completions()->create([
+                'model' => $engine,
+                'prompt' => $message,
+                'max_tokens' => 100,
+                'temperature' => 0.7,
+            ]);
+
+            $chatbotResponse = $response['choices'][0]['text'];
+
+            // Envoyer la réponse à l'utilisateur
+            $bot->reply($chatbotResponse);
         });
 
         $botman->listen();
-    }
-
-    /**
-     * Handle synoptic-related questions.
-     */
-    protected function handleSynopticQuestion(BotMan $bot, $message)
-    {
-        if (strpos($message, 'what is a synoptic message') !== false) {
-            $this->replySynopticDefinition($bot);
-        } elseif (strpos($message, 'importance of synoptic messages') !== false) {
-            $this->replySynopticImportance($bot);
-        } else {
-            $bot->reply("I'm sorry, I don't have information about that specific question.");
-        }
-    }
-
-    /**
-     * Reply with the definition of a synoptic message.
-     */
-    protected function replySynopticDefinition(BotMan $bot)
-    {
-        $bot->reply("A synoptic message is a concise and informative summary of important information or data.");
-    }
-
-    /**
-     * Reply with the importance of synoptic messages.
-     */
-    protected function replySynopticImportance(BotMan $bot)
-    {
-        $bot->reply("Synoptic messages are important because they provide a quick overview of key details, helping individuals to understand complex topics at a glance.");
     }
 }
