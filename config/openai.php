@@ -13,7 +13,7 @@ return [
     */
 
     // 'api_key' => env('OPENAI_API_KEY'),
-    'api_key' =>"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",
+    'api_key' =>"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",
     'organization' => env('OPENAI_ORGANIZATION'),
 
     /*
