@@ -53,7 +53,7 @@ We welcome contributions from the community. If you would like to contribute to 
 SynoptiXpress is licensed under the MIT License.
 
 ---- Author
-John Doe (ilhamoulakbir@gmail.com)
+Ilham OULAKBIR (ilhamoulakbir@gmail.com)
 
 ## About Laravel
 
