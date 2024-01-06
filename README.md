@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-<img src="Home page.jpe" alt="SynoptiXpress">
+<img src="Home page.jpeg" alt="SynoptiXpress">
 
 
 
